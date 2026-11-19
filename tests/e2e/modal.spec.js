@@ -2,14 +2,14 @@ import { expect, test } from '@playwright/test';
 import { answer, closeQuiz, reachResult, openQuiz } from './helpers.js';
 
 const triggers = [
-  ['header', '.header-cta'],
-  ['hero box', '.cta-box .btn'],
-  ['diagnostic box', '.diag-box .btn'],
-  ['final CTA', '.final-cta .btn'],
+  ['TC-12', 'header', '.header-cta'],
+  ['TC-13', 'hero box', '.cta-box .btn'],
+  ['TC-14', 'diagnostic box', '.diag-box .btn'],
+  ['TC-15', 'final CTA', '.final-cta .btn'],
 ];
 
-for (const [label, selector] of triggers) {
-  test(`AC-8: the ${label} button opens the quiz on question 1 with no answer selected`, async ({ page }) => {
+for (const [tc, label, selector] of triggers) {
+  test(`${tc} (AC-8): the ${label} button opens the quiz on question 1 with no answer selected`, async ({ page }) => {
     await page.goto('/');
     await page.locator(selector).click();
 
@@ -21,13 +21,13 @@ for (const [label, selector] of triggers) {
   });
 }
 
-test('AC-9: on desktop the sticky bar is hidden and the header button is visible', async ({ page }) => {
+test('TC-17 (AC-9): on desktop the sticky bar is hidden and the header button is visible', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('.mobile-bar')).toBeHidden();
   await expect(page.locator('.header-cta')).toBeVisible();
 });
 
-test('AC-10: one quiz instance exists, inside the modal, never visible in the page body', async ({ page }) => {
+test('TC-18 (AC-10): one quiz instance exists, inside the modal, never visible in the page body', async ({ page }) => {
   await page.goto('/');
 
   await expect(page.locator('#quiz')).toHaveCount(1);
@@ -37,7 +37,7 @@ test('AC-10: one quiz instance exists, inside the modal, never visible in the pa
   await expect(page.getByLabel('Seu e-mail para ver o diagnóstico')).toHaveCount(0);
 });
 
-test('AC-11: dialog role, accessible name, focus on close and locked body scroll', async ({ page }) => {
+test('TC-19 (AC-11): dialog role, accessible name, focus on close and locked body scroll', async ({ page }) => {
   await page.goto('/');
   await openQuiz(page);
 
@@ -49,7 +49,7 @@ test('AC-11: dialog role, accessible name, focus on close and locked body scroll
   expect(overflow).toBe('hidden');
 });
 
-test('AC-12: closes with Escape', async ({ page }) => {
+test('TC-20 (AC-12): closes with Escape', async ({ page }) => {
   await page.goto('/');
   await openQuiz(page);
 
@@ -59,7 +59,7 @@ test('AC-12: closes with Escape', async ({ page }) => {
   expect(overflow).not.toBe('hidden');
 });
 
-test('AC-12: closes with the close button', async ({ page }) => {
+test('TC-21 (AC-12): closes with the close button', async ({ page }) => {
   await page.goto('/');
   await openQuiz(page);
 
@@ -69,7 +69,7 @@ test('AC-12: closes with the close button', async ({ page }) => {
   expect(overflow).not.toBe('hidden');
 });
 
-test('AC-12: closes when the dimmed area outside the phone frame is clicked', async ({ page }) => {
+test('TC-22 (AC-12): closes when the dimmed area outside the phone frame is clicked', async ({ page }) => {
   await page.goto('/');
   await openQuiz(page);
 
@@ -77,7 +77,7 @@ test('AC-12: closes when the dimmed area outside the phone frame is clicked', as
   await expect(page.locator('#quiz-modal')).toBeHidden();
 });
 
-test('AC-13: clicking inside the phone frame keeps the modal open', async ({ page }) => {
+test('TC-23 (AC-13): clicking inside the phone frame keeps the modal open', async ({ page }) => {
   await page.goto('/');
   await openQuiz(page);
 
@@ -85,7 +85,7 @@ test('AC-13: clicking inside the phone frame keeps the modal open', async ({ pag
   await expect(page.getByRole('dialog', { name: 'Diagnóstico rápido, 7 perguntas' })).toBeVisible();
 });
 
-test('AC-14: the desktop frame is 400px wide, 40px rounded, centered and shows the notch', async ({ page }) => {
+test('TC-24 (AC-14): the desktop frame is 400px wide, 40px rounded, centered and shows the notch', async ({ page }) => {
   await page.goto('/');
   await openQuiz(page);
 
@@ -100,7 +100,7 @@ test('AC-14: the desktop frame is 400px wide, 40px rounded, centered and shows t
   await expect(page.getByRole('button', { name: 'Fechar o diagnóstico' })).toBeVisible();
 });
 
-test('AC-15: closing and reopening restarts on question 1 after some answers', async ({ page }) => {
+test('TC-26 (AC-15): closing and reopening restarts on question 1 after some answers', async ({ page }) => {
   await page.goto('/');
   await openQuiz(page);
   await answer(page, 0);
@@ -113,7 +113,7 @@ test('AC-15: closing and reopening restarts on question 1 after some answers', a
   await expect(page.locator('.quiz-option[aria-pressed="true"]')).toHaveCount(0);
 });
 
-test('AC-15: closing and reopening restarts on question 1 after the result', async ({ page }) => {
+test('TC-27 (AC-15): closing and reopening restarts on question 1 after the result', async ({ page }) => {
   await page.goto('/');
   await reachResult(page, Array(7).fill(0));
 
@@ -124,7 +124,7 @@ test('AC-15: closing and reopening restarts on question 1 after the result', asy
   await expect(page.locator('.quiz-option[aria-pressed="true"]')).toHaveCount(0);
 });
 
-test('AC-32: "Ver as aulas do curso" closes the modal and scrolls to #aulas', async ({ page }) => {
+test('TC-48 (AC-32): "Ver as aulas do curso" closes the modal and scrolls to #aulas', async ({ page }) => {
   await page.goto('/');
   await reachResult(page, Array(7).fill(0));
 
@@ -138,7 +138,7 @@ test('AC-32: "Ver as aulas do curso" closes the modal and scrolls to #aulas', as
   expect(scrollY).toBeGreaterThan(0);
 });
 
-test('AC-33: "Refazer o diagnóstico" keeps the modal open and restarts on question 1', async ({ page }) => {
+test('TC-49 (AC-33): "Refazer o diagnóstico" keeps the modal open and restarts on question 1', async ({ page }) => {
   await page.goto('/');
   await reachResult(page, Array(7).fill(2));
 

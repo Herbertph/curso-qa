@@ -3,7 +3,7 @@ import { reachResult } from './helpers.js';
 
 const LESSON_LABELS = ['AULA 01', 'AULA 02', 'AULA 03', 'AULA 04', 'AULA 05', 'AULA 06', 'AULA 07'];
 
-test('AC-28: all first options give 14/14, the top band and every area conferido', async ({ page }) => {
+test('TC-43 (AC-28): all first options give 14/14, the top band and every area conferido', async ({ page }) => {
   await page.goto('/');
   await reachResult(page, Array(7).fill(0), 'ana@site.com');
 
@@ -21,7 +21,7 @@ test('AC-28: all first options give 14/14, the top band and every area conferido
   );
 });
 
-test('AC-29: all last options give 0/14, the risk band and every area descoberto', async ({ page }) => {
+test('TC-44 (AC-29): all last options give 0/14, the risk band and every area descoberto', async ({ page }) => {
   await page.goto('/');
   await reachResult(page, Array(7).fill(2));
 
@@ -36,21 +36,21 @@ test('AC-29: all last options give 0/14, the risk band and every area descoberto
   );
 });
 
-test('AC-30: a total of 4 stays in the risk band', async ({ page }) => {
+test('TC-45 (AC-30): a total of 4 stays in the risk band', async ({ page }) => {
   await page.goto('/');
   await reachResult(page, [0, 0, 2, 2, 2, 2, 2]);
   await expect(page.locator('.result-points')).toHaveText('4/14');
   await expect(page.locator('.result-band-title')).toHaveText('Lançamento em risco');
 });
 
-test('AC-30: a total of 10 enters the top band', async ({ page }) => {
+test('TC-46 (AC-30): a total of 10 enters the top band', async ({ page }) => {
   await page.goto('/');
   await reachResult(page, [0, 0, 0, 0, 1, 1, 2]);
   await expect(page.locator('.result-points')).toHaveText('10/14');
   await expect(page.locator('.result-band-title')).toHaveText('Quase pronto, feche as lacunas');
 });
 
-test('AC-31: mixed answers show each area status, its lesson and only the weak areas as priority', async ({ page }) => {
+test('TC-47 (AC-31): mixed answers show each area status, its lesson and only the weak areas as priority', async ({ page }) => {
   await page.goto('/');
   await reachResult(page, [0, 1, 2, 0, 1, 2, 0]);
 

@@ -58,7 +58,7 @@ const progressRatio = (page) =>
     return (fill.getBoundingClientRect().width / track.clientWidth) * 100;
   });
 
-test('AC-16: every question shows the exact area, counter, question, hint and options', async ({ page }) => {
+test('TC-28 (AC-16): every question shows the exact area, counter, question, hint and options', async ({ page }) => {
   await page.goto('/');
   await openQuiz(page);
 
@@ -77,7 +77,7 @@ test('AC-16: every question shows the exact area, counter, question, hint and op
   }
 });
 
-test('AC-17: Continuar is disabled and does not advance without a selected option', async ({ page }) => {
+test('TC-29 (AC-17): Continuar is disabled and does not advance without a selected option', async ({ page }) => {
   await page.goto('/');
   await openQuiz(page);
 
@@ -87,7 +87,7 @@ test('AC-17: Continuar is disabled and does not advance without a selected optio
   await expect(page.locator('.quiz-count')).toHaveText('Pergunta 1 de 7');
 });
 
-test('AC-18: only the last selected option stays pressed and enables Continuar', async ({ page }) => {
+test('TC-30 (AC-18): only the last selected option stays pressed and enables Continuar', async ({ page }) => {
   await page.goto('/');
   await openQuiz(page);
 
@@ -100,7 +100,7 @@ test('AC-18: only the last selected option stays pressed and enables Continuar',
   await expect(page.locator('.quiz-next')).toBeEnabled();
 });
 
-test('AC-19: Voltar is invisible on question 1 but keeps the Continuar position', async ({ page }) => {
+test('TC-31 (AC-19): Voltar is invisible on question 1 but keeps the Continuar position', async ({ page }) => {
   await page.goto('/');
   await openQuiz(page);
 
@@ -116,7 +116,7 @@ test('AC-19: Voltar is invisible on question 1 but keeps the Continuar position'
   expect(secondPosition.x).toBeCloseTo(firstPosition.x, 0);
 });
 
-test('AC-20: going back keeps the previous answer selected and Continuar enabled', async ({ page }) => {
+test('TC-32 (AC-20): going back keeps the previous answer selected and Continuar enabled', async ({ page }) => {
   await page.goto('/');
   await openQuiz(page);
 
@@ -129,7 +129,7 @@ test('AC-20: going back keeps the previous answer selected and Continuar enabled
   await expect(page.locator('.quiz-next')).toBeEnabled();
 });
 
-test('AC-21: the progress bar follows (N-1)/7 and reaches 100% on the e-mail screen', async ({ page }) => {
+test('TC-33 (AC-21): the progress bar follows (N-1)/7 and reaches 100% on the e-mail screen', async ({ page }) => {
   await page.goto('/');
   await openQuiz(page);
 
@@ -151,7 +151,7 @@ test('AC-21: the progress bar follows (N-1)/7 and reaches 100% on the e-mail scr
   expect(await progressRatio(page)).toBeCloseTo(100, 0);
 });
 
-test('AC-22: question 7 reads "Ver o que falta" and leads to the e-mail screen', async ({ page }) => {
+test('TC-34 (AC-22): question 7 reads "Ver o que falta" and leads to the e-mail screen', async ({ page }) => {
   await page.goto('/');
   await openQuiz(page);
 
@@ -169,7 +169,7 @@ test('AC-22: question 7 reads "Ver o que falta" and leads to the e-mail screen',
   await expect(page.getByText('SEU DIAGNÓSTICO')).toHaveCount(0);
 });
 
-test('AC-23: the phone screen scrolls back to the top on every screen change', async ({ page }) => {
+test('TC-35 (AC-23): the phone screen scrolls back to the top on every screen change', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 500 });
   await page.goto('/');
   await openQuiz(page);
@@ -183,5 +183,37 @@ test('AC-23: the phone screen scrolls back to the top on every screen change', a
   await selectOption(page, 0);
   await goNext(page);
 
+  expect(await screen.evaluate((el) => el.scrollTop)).toBe(0);
+});
+
+test('TC-36 (AC-23): the phone screen scrolls back to the top on the e-mail and result screens', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 400 });
+  await page.goto('/');
+  await openQuiz(page);
+
+  for (let index = 0; index < 6; index += 1) {
+    await selectOption(page, 0);
+    await goNext(page);
+  }
+  await selectOption(page, 0);
+
+  const screen = page.locator('.phone-screen');
+  await screen.evaluate((el) => {
+    el.scrollTop = el.scrollHeight;
+  });
+  expect(await screen.evaluate((el) => el.scrollTop)).toBeGreaterThan(0);
+
+  await page.locator('.quiz-next').click();
+  await expect(page.getByLabel('Seu e-mail para ver o diagnóstico')).toBeVisible();
+  expect(await screen.evaluate((el) => el.scrollTop)).toBe(0);
+
+  await screen.evaluate((el) => {
+    el.scrollTop = el.scrollHeight;
+  });
+  expect(await screen.evaluate((el) => el.scrollTop)).toBeGreaterThan(0);
+
+  await page.getByLabel('Seu e-mail para ver o diagnóstico').fill('ana@site.com');
+  await page.getByRole('button', { name: 'Ver meu diagnóstico' }).click();
+  await expect(page.getByText('SEU DIAGNÓSTICO')).toBeVisible();
   expect(await screen.evaluate((el) => el.scrollTop)).toBe(0);
 });

@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { openQuiz } from './helpers.js';
 
-test('AC-39: every interactive element is reachable by Tab with a visible focus indicator', async ({ page }) => {
+test('TC-57 (AC-39): every interactive element is reachable by Tab with a visible focus indicator', async ({ page }) => {
   await page.goto('/');
 
   const trail = [];
@@ -33,7 +33,7 @@ test('AC-39: every interactive element is reachable by Tab with a visible focus 
   expect(trail[4].className).toContain('acc-trigger');
 });
 
-test('AC-39: the quiz opens and options are selected with Space and Enter', async ({ page }) => {
+test('TC-58 (AC-39): the quiz opens and options are selected with Space and Enter', async ({ page }) => {
   await page.goto('/');
 
   await page.locator('.header-cta').focus();
@@ -58,7 +58,7 @@ test('AC-39: the quiz opens and options are selected with Space and Enter', asyn
   await expect(first).toHaveAttribute('aria-pressed', 'false');
 });
 
-test('AC-39: the close button and the primary quiz button are keyboard reachable', async ({ page }) => {
+test('TC-59 (AC-39): the close button and the primary quiz button are keyboard reachable', async ({ page }) => {
   await page.goto('/');
   await openQuiz(page);
 

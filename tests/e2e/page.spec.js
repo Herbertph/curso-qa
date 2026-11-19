@@ -21,7 +21,7 @@ const ROOT_VARS = {
 const columns = (page, selector) =>
   page.locator(selector).evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(' ').filter(Boolean).length);
 
-test('AC-1: language, title, favicon and viewport meta', async ({ page }) => {
+test('TC-1 (AC-1): language, title, favicon and viewport meta', async ({ page }) => {
   await page.goto('/');
 
   await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');
@@ -34,7 +34,7 @@ test('AC-1: language, title, favicon and viewport meta', async ({ page }) => {
   expect(viewport).toContain('viewport-fit=cover');
 });
 
-test('AC-2: sections are in the source order', async ({ page }) => {
+test('TC-2 (AC-2): sections are in the source order', async ({ page }) => {
   await page.goto('/');
 
   const order = await page
@@ -58,7 +58,7 @@ test('AC-2: sections are in the source order', async ({ page }) => {
   await expect(page.locator('.site-footer')).toBeVisible();
 });
 
-test('AC-2: hero, conference card and proof strip copy is exact', async ({ page }) => {
+test('TC-3 (AC-2): hero, conference card and proof strip copy is exact', async ({ page }) => {
   await page.goto('/');
 
   await expect(page.locator('.hero .pill')).toHaveText('Mini curso, 8 aulas curtas');
@@ -110,7 +110,7 @@ test('AC-2: hero, conference card and proof strip copy is exact', async ({ page 
   ]);
 });
 
-test('AC-2: diagnostic, problem, format, course, audience, instructor, FAQ, final CTA and footer copy is exact', async ({ page }) => {
+test('TC-4 (AC-2): section headings, leads and instructor card copy are exact', async ({ page }) => {
   await page.goto('/');
 
   const diagnostico = page.locator('[data-section="diagnostico"]');
@@ -173,7 +173,75 @@ test('AC-2: diagnostic, problem, format, course, audience, instructor, FAQ, fina
   ]);
 });
 
-test('AC-3: no em dash or en dash in the rendered page, attributes or quiz screens', async ({ page }) => {
+test('TC-5 (AC-2): card, step, audience, instructor and FAQ copy is exact', async ({ page }) => {
+  await page.goto('/');
+
+  const problema = page.locator('[data-section="problema"]');
+  await expect(problema.locator('.eyebrow')).toHaveText('O problema');
+  await expect(problema.locator('.section-lead')).toHaveText(
+    'Hoje qualquer founder monta um SaaS em semanas. Só que velocidade sem teste cria um tipo novo de bug, o bug que ninguém viu porque ninguém procurou.',
+  );
+  await expect(problema.locator('.card > p:not(.tag)')).toHaveText([
+    'O agente diz que terminou, você publica, e o primeiro pagamento real falha, o primeiro cliente perde os dados que salvou, ou pior, enxerga os dados de outro cliente. A correção vem depois do estrago, com pressa e com o cliente já desconfiando do produto.',
+    'Você roda uma conferência curta e metódica nas áreas que realmente quebram um SaaS. Cada falha aparece na sua tela, em ambiente de teste, com tempo de pedir a correção para o agente e conferir de novo. Lançar vira uma decisão, não uma aposta.',
+  ]);
+
+  const formato = page.locator('[data-section="formato"]');
+  await expect(formato.locator('.eyebrow')).toHaveText('O formato de cada aula');
+  await expect(formato.locator('.section-lead')).toHaveText(
+    'Cada um dos 7 testes segue o mesmo formato, para você aplicar no seu produto no mesmo dia, mesmo sem escrever código na mão.',
+  );
+  await expect(formato.locator('.card-step > p:not(.step-num)')).toHaveText([
+    'Qual área do seu SaaS aquele teste cobre, pagamento, login, dados, permissões, e onde o risco mora nela.',
+    'O que quebra se essa área falhar, traduzido para a linguagem do founder, venda perdida, dado perdido, cliente perdido.',
+    'Um prompt completo para colar no seu agente e pedir a implementação ou a correção do teste, sem você precisar saber programá-lo.',
+    'O passo a passo curto, na tela, para você mesmo confirmar se funcionou. Porque o agente diz que fez, mas quem valida é você.',
+  ]);
+
+  const aulas = page.locator('[data-section="aulas"]');
+  await expect(aulas.locator('.eyebrow')).toHaveText('Conteúdo do curso');
+  await expect(aulas.locator('.section-lead')).toHaveText(
+    'Toque em cada aula para ver o que ela cobre. Aulas curtas, sem enrolação, cada uma termina com a conferência feita no seu próprio produto.',
+  );
+
+  const publico = page.locator('[data-section="publico"]');
+  await expect(publico.locator('.eyebrow')).toHaveText('Para quem é');
+  await expect(publico.locator('.card-yes .check-list li')).toHaveText([
+    'Você está criando um SaaS com IA, vibe coding ou agente de código',
+    'Você vai lançar, ou já lançou, sem ninguém testando além de você',
+    'Seu maior medo é quebrar em produção na frente dos primeiros clientes',
+    'Você quer um método curto de conferência, para repetir em todo lançamento',
+  ]);
+  await expect(publico.locator('.card-no .check-list li')).toHaveText([
+    'Você quer uma formação completa em QA ou preparação para certificação',
+    'Você procura automação avançada de testes e frameworks de código',
+    'Seu produto já tem uma equipe de qualidade dedicada',
+    'Você quer promessa de resultado financeiro, aqui não tem nenhuma',
+  ]);
+
+  const instrutor = page.locator('[data-section="instrutor"]');
+  await expect(instrutor.locator('.eyebrow')).toHaveText('Quem ensina');
+  await expect(instrutor.locator('.section-lead')).toHaveText(
+    'Você vai ver por aí curso vendido com print de faturamento e promessa de resultado. Aqui a credibilidade é outra, é trabalho real, verificável, feito todos os dias.',
+  );
+  await expect(instrutor.locator('.instructor-list li')).toHaveText([
+    'Team Lead de QA em laboratório de testes no Canadá, com software que não pode ir ao ar com erro',
+    '95% de aprovação na primeira verificação dos produtos testados nos últimos 6 meses',
+    'Reduziu uma triagem de bugs de 3 dias para menos de 24 horas',
+    'Certificado CTFL, ISTQB, em 2026',
+    'Mais de 10 anos em TI, de desenvolvedor full stack a líder de QA',
+  ]);
+  await expect(instrutor.locator('.instructor-text p')).toHaveText([
+    'Eu trabalho testando software que não pode ir ao ar com erro. No laboratório onde lidero a área de QA, cada produto passa por uma verificação rigorosa antes de qualquer liberação, e cada problema encontrado volta para quem desenvolveu corrigir, com o processo rodando até ficar certo.',
+    'É esse olhar que falta no SaaS feito com IA. Não é falta de código, o agente entrega código o dia inteiro. É falta de alguém conferindo o que importa, na ordem certa, antes do cliente. Foi exatamente esse método, simplificado para quem não é de QA, que virou as 7 aulas deste curso.',
+    'Nada aqui é teoria de livro. É o mesmo raciocínio de priorização e conferência que eu uso no trabalho, traduzido para a realidade de quem constrói sozinho, com agente, e precisa lançar sem medo.',
+  ]);
+
+  await expect(page.locator('[data-section="faq"] .eyebrow')).toHaveText('Perguntas frequentes');
+  await expect(page.locator('.final-cta .eyebrow')).toHaveText('Diagnóstico rápido');
+});
+
+test('TC-6 (AC-3): no em dash or en dash in the rendered page, attributes or quiz screens', async ({ page }) => {
   await page.goto('/');
   const html = await page.evaluate(() => document.documentElement.outerHTML);
   expect(html).not.toMatch(/[\u2013\u2014]/);
@@ -192,7 +260,7 @@ test('AC-3: no em dash or en dash in the rendered page, attributes or quiz scree
   expect(resultHtml).not.toMatch(/[\u2013\u2014]/);
 });
 
-test('AC-4: no waitlist wording, no e-mail field and no form outside the quiz modal', async ({ page }) => {
+test('TC-7 (AC-4): no waitlist wording, no e-mail field and no form outside the quiz modal', async ({ page }) => {
   await page.goto('/');
   const body = await page.locator('body').innerText();
   for (const wording of ['lista de espera', 'avise-me', 'garanta sua vaga', 'entrar na lista']) {
@@ -205,7 +273,7 @@ test('AC-4: no waitlist wording, no e-mail field and no form outside the quiz mo
   expect(outsideForms).toBe(0);
 });
 
-test('AC-5: the 15 source variables and both Google Fonts are loaded', async ({ page }) => {
+test('TC-8 (AC-5): the 15 source variables and both Google Fonts are loaded', async ({ page }) => {
   await page.goto('/');
 
   const values = await page.evaluate(
@@ -225,7 +293,7 @@ test('AC-5: the 15 source variables and both Google Fonts are loaded', async ({ 
   await expect(page.locator('link[rel="preconnect"][href="https://fonts.gstatic.com"]')).toHaveCount(1);
 });
 
-test('AC-6: the shield SVG sits complete inside the logo box and the logo links to #topo', async ({ page }) => {
+test('TC-9 (AC-6): the shield SVG sits complete inside the header logo box', async ({ page }) => {
   await page.goto('/');
 
   const logo = page.locator('.logo');
@@ -246,7 +314,7 @@ test('AC-6: the shield SVG sits complete inside the logo box and the logo links 
   expect(shield.y + shield.height).toBeLessThanOrEqual(box.y + box.height);
 });
 
-test('AC-7: no console errors and no failed requests except optional Google Fonts', async ({ page }) => {
+test('TC-11 (AC-7): no console errors and no failed requests except optional Google Fonts', async ({ page }) => {
   const errors = [];
   const failed = [];
 
@@ -268,7 +336,7 @@ test('AC-7: no console errors and no failed requests except optional Google Font
   expect(failed).toEqual([]);
 });
 
-test('AC-37: no horizontal overflow and the layout breaks at 900px and 620px', async ({ page }) => {
+test('TC-55 (AC-37): no horizontal overflow and the layout breaks at 900px and 620px', async ({ page }) => {
   await page.goto('/');
 
   for (const width of [320, 390, 620, 621, 900, 901, 1280]) {
@@ -302,7 +370,7 @@ test('AC-37: no horizontal overflow and the layout breaks at 900px and 620px', a
   expect(await columns(page, '[data-section="formato"] .grid-4')).toBe(1);
 });
 
-test('AC-38: reduced motion turns smooth scrolling and the plus rotation off', async ({ page }) => {
+test('TC-56 (AC-38): reduced motion turns smooth scrolling and the plus rotation off', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
 
@@ -313,7 +381,7 @@ test('AC-38: reduced motion turns smooth scrolling and the plus rotation off', a
   expect(plusTransition).toBe('0s');
 });
 
-test('AC-40: spacing, sizes and radii come from the token scale', async ({ page }) => {
+test('TC-60 (AC-40): radii come from the token scale', async ({ page }) => {
   await page.goto('/');
 
   const radii = await page.evaluate(() => ({
@@ -328,7 +396,7 @@ test('AC-40: spacing, sizes and radii come from the token scale', async ({ page 
   expect(phone).toBe('40px');
 });
 
-test('AC-41: computed padding, margin and gap values belong to the spacing scale', async ({ page }) => {
+test('TC-61 (AC-41): computed padding, margin and gap values belong to the spacing scale', async ({ page }) => {
   await page.goto('/');
   await page.locator('button[data-open-quiz]:visible').first().click();
   for (let i = 0; i < 7; i += 1) {
@@ -418,7 +486,7 @@ test('AC-41: computed padding, margin and gap values belong to the spacing scale
   expect(offenders).toEqual([]);
 });
 
-test('AC-42: every font size comes from the type scale', async ({ page }) => {
+test('TC-62 (AC-42): every font size comes from the type scale', async ({ page }) => {
   await page.goto('/');
 
   const sizes = await page.evaluate(() => {

@@ -1,6 +1,20 @@
 import { expect, test } from '@playwright/test';
 
-test('AC-9: the sticky bar opens the quiz on question 1 and the header button is hidden', async ({ page }) => {
+test('TC-10 (AC-6): the shield sits complete inside the header logo box on mobile', async ({ page }) => {
+  await page.goto('/');
+
+  const box = await page.locator('.logo-box').boundingBox();
+  const shield = await page.locator('.logo-shield').boundingBox();
+
+  expect(shield.width).toBeCloseTo(32, 0);
+  expect(shield.height).toBeCloseTo(32, 0);
+  expect(shield.x).toBeGreaterThanOrEqual(box.x);
+  expect(shield.y).toBeGreaterThanOrEqual(box.y);
+  expect(shield.x + shield.width).toBeLessThanOrEqual(box.x + box.width);
+  expect(shield.y + shield.height).toBeLessThanOrEqual(box.y + box.height);
+});
+
+test('TC-16 (AC-9): the sticky bar opens the quiz on question 1 and the header button is hidden', async ({ page }) => {
   await page.goto('/');
 
   await expect(page.locator('.header-cta')).toBeHidden();
@@ -13,7 +27,7 @@ test('AC-9: the sticky bar opens the quiz on question 1 and the header button is
   await expect(page.locator('.quiz-option[aria-pressed="true"]')).toHaveCount(0);
 });
 
-test('AC-14: on mobile the frame fills the viewport with no border radius', async ({ page }) => {
+test('TC-25 (AC-14): on mobile the frame fills the viewport with no border radius', async ({ page }) => {
   await page.goto('/');
   await page.locator('.mobile-bar button').click();
 
