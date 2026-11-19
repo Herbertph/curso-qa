@@ -121,7 +121,9 @@ Lead capture (tests must intercept the MailerLite request with Playwright routin
 - **AC-3** Given an invalid e-mail is submitted, then no request is sent.
 - **AC-4** Given the MailerLite endpoint returns HTTP 500, or the request is aborted, or it does not answer for 10
   seconds, when I submit a valid e-mail, then the result screen and the offer appear immediately and normally, no
-  error is shown to the visitor and there is no console error.
+  error is shown to the visitor and page code raises no console error (no `console.error`, no uncaught exception
+  or unhandled rejection). The browser's own network line `Failed to load resource: ...` is outside page control
+  and is accepted (analyst decision, 2026-11-19).
 - **AC-5** Given the MailerLite IDs are empty (the committed default), when I submit a valid e-mail, then no network
   request is made and the result appears.
 - **AC-6** Given the page source, the built `dist/` files and the repository, then no MailerLite API key or token
