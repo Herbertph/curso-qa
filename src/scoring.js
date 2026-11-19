@@ -34,3 +34,15 @@ export function formatPriorityList(areas) {
 export function isValidEmail(value) {
   return EMAIL_PATTERN.test(value);
 }
+
+export function buildLead(email, answers) {
+  const score = totalScore(answers);
+  return {
+    email: typeof email === 'string' ? email.trim() : '',
+    quiz_score: score,
+    quiz_band: bandFor(score).title,
+    quiz_open_areas: priorityAreas(answers)
+      .map(({ area }) => area)
+      .join(', '),
+  };
+}

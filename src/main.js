@@ -1,5 +1,6 @@
 import './styles.css';
 import { initAccordion } from './accordion.js';
+import { initCourseOffer } from './checkout.js';
 import { createModal } from './modal.js';
 import { createQuiz } from './quiz.js';
 
@@ -28,3 +29,4 @@ document.querySelectorAll('[data-open-quiz]').forEach((button) => {
 });
 
 document.querySelectorAll('.accordion').forEach((accordion) => initAccordion(accordion));
+initCourseOffer(document.getElementById('course-offer'));

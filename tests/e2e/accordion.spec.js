@@ -25,10 +25,25 @@ const LESSON_SUBTITLES = [
 const FAQ_QUESTIONS = [
   'Preciso saber programar para fazer o curso?',
   'Funciona com a ferramenta que eu uso?',
-  'Quando o curso lança e quanto vai custar?',
+  'Quanto custa o curso?',
   'O diagnóstico é gratuito?',
   'Eu já lancei meu SaaS. Ainda faz sentido?',
 ];
+
+const FAQ_ANSWERS = [
+  'Não. O curso foi desenhado para quem constrói com agente. Em cada aula, o prompt pronto faz a parte técnica com a sua LLM, e a conferência manual é feita na tela, clicando e observando, sem escrever código.',
+  'Sim. Os prompts e as conferências não dependem de uma ferramenta específica. Servem para Cursor, Claude, Copilot, ChatGPT e qualquer outro agente ou LLM que você já use para construir seu SaaS.',
+  'R$ 9,90, à vista, com 7 dias de garantia. O pagamento é feito pela Kiwify.',
+  'Sim. São 7 perguntas, leva cerca de 1 minuto, e o resultado aparece na tela com sua pontuação de 0 a 14 e o status de cada área. Pedimos seu e-mail antes de mostrar o resultado, só isso.',
+  'Faz, e talvez faça ainda mais. Os 7 testes viram um ritual de conferência para cada nova versão, cada nova funcionalidade e cada correção que o agente entregar. Produto lançado quebra em atualização do mesmo jeito que quebra em lançamento.',
+];
+
+test('AC-19: FAQ item 3 asks the price and keeps the other 4 items unchanged', async ({ page }) => {
+  await page.goto('/');
+
+  await expect(page.locator('.faq-accordion .acc-title')).toHaveText(FAQ_QUESTIONS);
+  await expect(page.locator('.faq-accordion .acc-panel p')).toHaveText(FAQ_ANSWERS);
+});
 
 test('TC-50 (AC-34): the course accordion has the 8 exact lessons and lesson 00 is open', async ({ page }) => {
   await page.goto('/');
@@ -147,11 +162,5 @@ test('TC-51 (AC-34): every lesson body and all course tags are exact', async ({ 
 test('TC-54 (AC-36): every FAQ answer is exact', async ({ page }) => {
   await page.goto('/');
 
-  await expect(page.locator('.faq-accordion .acc-panel p')).toHaveText([
-    'Não. O curso foi desenhado para quem constrói com agente. Em cada aula, o prompt pronto faz a parte técnica com a sua LLM, e a conferência manual é feita na tela, clicando e observando, sem escrever código.',
-    'Sim. Os prompts e as conferências não dependem de uma ferramenta específica. Servem para Cursor, Claude, Copilot, ChatGPT e qualquer outro agente ou LLM que você já use para construir seu SaaS.',
-    'O curso está em produção e será lançado quando estiver completo, com data e preço publicados aqui. Enquanto isso, o diagnóstico já mostra quais áreas do seu SaaS precisam de atenção primeiro.',
-    'Sim. São 7 perguntas, leva cerca de 1 minuto, e o resultado aparece na tela com sua pontuação de 0 a 14 e o status de cada área. Pedimos seu e-mail antes de mostrar o resultado, só isso.',
-    'Faz, e talvez faça ainda mais. Os 7 testes viram um ritual de conferência para cada nova versão, cada nova funcionalidade e cada correção que o agente entregar. Produto lançado quebra em atualização do mesmo jeito que quebra em lançamento.',
-  ]);
+  await expect(page.locator('.faq-accordion .acc-panel p')).toHaveText(FAQ_ANSWERS);
 });

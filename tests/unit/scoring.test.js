@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   bandFor,
+  buildLead,
   formatPriorityList,
   isValidEmail,
   pointsFor,
@@ -102,5 +103,47 @@ describe('isValidEmail', () => {
     'ana@@site.com',
   ])('rejects %j', (value) => {
     expect(isValidEmail(value)).toBe(false);
+  });
+});
+
+describe('buildLead', () => {
+  it('trims the e-mail and returns score, band and open areas for a mixed answer set', () => {
+    expect(buildLead('  ana@site.com  ', [2, 1, 0, 2, 1, 0, 2])).toEqual({
+      email: 'ana@site.com',
+      quiz_score: 8,
+      quiz_band: 'Base parcial, buracos abertos',
+      quiz_open_areas:
+        'Pagamento e checkout, Salvamento e perda de dados, Fluxo principal ponta a ponta, Erros e casos limite',
+    });
+  });
+
+  it('returns an empty open-areas string and the top band for all 2 points', () => {
+    expect(buildLead('ana@site.com', all(2))).toEqual({
+      email: 'ana@site.com',
+      quiz_score: 14,
+      quiz_band: 'Quase pronto, feche as lacunas',
+      quiz_open_areas: '',
+    });
+  });
+
+  it('lists the 7 open areas in lesson order for all 0 points', () => {
+    expect(buildLead('ana@site.com', all(0))).toEqual({
+      email: 'ana@site.com',
+      quiz_score: 0,
+      quiz_band: 'Lançamento em risco',
+      quiz_open_areas:
+        'Login e sessão, Pagamento e checkout, Salvamento e perda de dados, Permissões e acesso, Fluxo principal ponta a ponta, Erros e casos limite, Mobile e navegadores',
+    });
+  });
+
+  it.each([
+    [[2, 2, 0, 0, 0, 0, 0], 4, 'Lançamento em risco'],
+    [[2, 2, 1, 0, 0, 0, 0], 5, 'Base parcial, buracos abertos'],
+    [[2, 2, 2, 2, 1, 0, 0], 9, 'Base parcial, buracos abertos'],
+    [[2, 2, 2, 2, 2, 0, 0], 10, 'Quase pronto, feche as lacunas'],
+  ])('band boundaries: %j gives %i points in "%s"', (answers, score, band) => {
+    const lead = buildLead('ana@site.com', answers);
+    expect(lead.quiz_score).toBe(score);
+    expect(lead.quiz_band).toBe(band);
   });
 });

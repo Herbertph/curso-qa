@@ -7,8 +7,10 @@ A human reviews and merges every PR.
 ## Stack
 
 - **Vite 8 + vanilla JavaScript (ES modules)**, no framework.
-- **`vite-plugin-singlefile`**: `npm run build` emits one self-contained `dist/index.html` with CSS and JS inlined.
-  Fonts stay on Google Fonts (Archivo and IBM Plex Mono).
+- **`vite-plugin-singlefile`**: `npm run build` emits two self-contained pages, `dist/index.html` and
+  `dist/privacidade.html`, each with CSS and JS inlined. Fonts stay on Google Fonts (Archivo and IBM Plex Mono).
+  The build runs in two passes (`vite.config.js`, then `vite.privacy.config.js` with `emptyOutDir: false`) because
+  the single-file plugin cannot inline a chunk shared by two entries.
 - **Vitest** for unit tests of the pure logic (`tests/unit`).
 - **Playwright** (Chromium) for end-to-end tests, with two projects: `desktop` (1280×800) and `mobile` (390×844).
   Tests run against `vite preview` of the built file on `127.0.0.1:4173`, never on the Lamp port 4545.
@@ -21,7 +23,7 @@ A human reviews and merges every PR.
 | --- | --- |
 | `npm install` | install dependencies |
 | `npm run dev` | Vite dev server |
-| `npm run build` | build the single-file `dist/index.html` |
+| `npm run build` | build `dist/index.html` and `dist/privacidade.html` (two single-file passes) |
 | `npm run preview` | preview the built file (Vite default port 4173) |
 | `npm run serve:e2e` | preview the built file on `127.0.0.1:4173` for Playwright |
 | `npm test` | run Vitest unit tests |
@@ -40,6 +42,10 @@ First local end-to-end run needs the browser: `npx playwright install chromium`.
 - `src/quiz.js`: quiz state machine and screen rendering (all text via `textContent`).
 - `src/modal.js`: modal open/close, focus, scroll lock and the three close methods.
 - `src/accordion.js`: course and FAQ accordions (one open at a time, `aria-expanded` in sync).
+- `privacidade.html`: privacy policy page (pt-BR), built by `vite.privacy.config.js`.
+- `src/config.js`: public configuration (MailerLite IDs, Kiwify checkout URL, privacy contact e-mail). See
+  "Configuration and lead capture" below.
+- `src/lead.js`: fire-and-forget MailerLite lead sender (`leadEndpoint`, `buildLeadBody`, `sendLead`).
 - `src/main.js`: moves the quiz into the phone screen and wires every `[data-open-quiz]` button.
 - `tests/unit/`: Vitest tests (scoring, quiz copy, design tokens).
 - `tests/e2e/`: Playwright acceptance tests, named after their AC-n.
@@ -48,6 +54,42 @@ First local end-to-end run needs the browser: `npx playwright install chromium`.
 - `docs/test-reports/`: test reports written by the tester.
 - Bugs found in testing are filed as GitHub issues labeled `bug` and `severity: *`. Fix commits reference the issue
   (`fix: ... (#12)`), and PRs close them with `Fixes #12`.
+
+## Configuration and lead capture
+
+`src/config.js` holds four public values, all **empty strings in the repository** until Herbert provides them:
+
+| Key | What it is | Effect while empty |
+| --- | --- | --- |
+| `MAILERLITE_ACCOUNT_ID` | account ID from the MailerLite embedded form code | no lead request is sent |
+| `MAILERLITE_FORM_ID` | form ID from the same embed code | no lead request is sent |
+| `CHECKOUT_URL` | Kiwify checkout link of the course | both `Quero o curso` controls render but do nothing |
+| `PRIVACY_CONTACT_EMAIL` | contact address shown on the privacy page | the "você também pode escrever" sentence is hidden |
+
+These are public identifiers. **Never** put a MailerLite API key or token (`connect.mailerlite.com/api`, `Bearer`)
+in the page or the repository; a test enforces this.
+
+**MailerLite request** (`src/lead.js`): on a valid e-mail submit the quiz shows the result immediately and, in
+parallel, sends `POST https://assets.mailerlite.com/jsonp/<ACCOUNT_ID>/forms/<FORM_ID>/subscribe` with
+`mode: 'no-cors'`, `Content-Type: application/x-www-form-urlencoded` and the fields `fields[email]`,
+`fields[quiz_score]` (0 to 14), `fields[quiz_band]` (band title), `fields[quiz_open_areas]` (areas with fewer than
+2 points, in lesson order, joined by `, `), plus `ml-submit=1` and `anticsrf=true`. An 8 s `AbortController` timeout
+applies and every failure is swallowed silently. The payload is built by the pure `buildLead` in `src/scoring.js`.
+With `no-cors` the response is opaque, so success can only be confirmed inside MailerLite.
+
+**MailerLite setup (Herbert, once):** create custom fields `quiz_score` (number), `quiz_band` (text) and
+`quiz_open_areas` (text); create an embedded form linked to a group (for example "Diagnóstico") with those fields;
+copy the account ID and form ID from its embed code into `src/config.js`; then make one real submission and confirm
+the subscriber and the three fields in MailerLite.
+
+**Test config override:** end-to-end tests never call the real MailerLite. `tests/e2e/helpers.js` sets
+`window.__TEST_CONFIG__` with Playwright `addInitScript` before `page.goto` (`useConfig`), which `src/config.js`
+reads over the empty defaults, and intercepts `assets.mailerlite.com/jsonp/` with `page.route` (`mockMailerLite`,
+supporting HTTP status, abort and hang). Committed defaults must stay empty.
+
+**Console errors:** when a lead request fails or is blocked, Chrome itself logs `Failed to load resource: ...`. Page
+code cannot suppress it, so tests ignore only that browser line and still fail on any `console.error` or uncaught
+exception raised by page code.
 
 ## Design system (FR-16): 8px grid and Refactoring UI
 
