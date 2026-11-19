@@ -1110,6 +1110,7 @@ p {
 .quiz-count {
   color: var(--muted);
   letter-spacing: 0;
+  white-space: nowrap;
 }
 
 .quiz-email {
