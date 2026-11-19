@@ -169,7 +169,7 @@ test('TC-4 (AC-2): section headings, leads and instructor card copy are exact', 
 
   await expect(page.locator('.footer-inner p')).toHaveText([
     'UNFLAKY, Quality Lab, Herbert Parasio',
-    'Mini curso em produção. Conteúdo baseado em experiência real de QA, sem resultados financeiros prometidos ou inventados.',
+    'Conteúdo baseado em experiência real de QA, sem resultados financeiros prometidos ou inventados. Política de privacidade',
   ]);
 });
 

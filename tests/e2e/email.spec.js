@@ -64,7 +64,7 @@ test('TC-40 (AC-26): accepts a plus and subdomain e-mail', async ({ page }) => {
   await expect(page.locator('.quiz-email')).toHaveText('a.b+c@sub.dominio.com.br');
 });
 
-test('TC-41 (AC-27): the e-mail is never sent over the network', async ({ page }) => {
+test('TC-41 (AC-5): with the committed empty config the e-mail is never sent to MailerLite', async ({ page }) => {
   const requests = [];
   page.on('request', (request) => {
     requests.push(`${request.url()} ${request.postData() ?? ''}`);
@@ -76,7 +76,7 @@ test('TC-41 (AC-27): the e-mail is never sent over the network', async ({ page }
   await page.getByRole('button', { name: 'Ver meu diagnóstico' }).click();
   await expect(page.getByText('SEU DIAGNÓSTICO')).toBeVisible();
 
-  expect(requests.filter((request) => request.includes('ana@site.com'))).toEqual([]);
+  expect(requests.filter((request) => /mailerlite\.com/.test(request) || request.includes('ana@site.com'))).toEqual([]);
 });
 
 test('TC-42 (AC-27): e-mail markup is rendered as text, not HTML', async ({ page }) => {

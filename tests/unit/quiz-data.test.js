@@ -1,5 +1,15 @@
 import { describe, expect, it } from 'vitest';
-import { AREAS, BANDS, EMAIL_COPY, OPTIONS, QUESTIONS_COPY, RESULT_COPY, STATUS } from '../../src/quiz-data.js';
+import {
+  AREAS,
+  BANDS,
+  EMAIL_COPY,
+  OFFER_COPY,
+  OPTIONS,
+  PRIVACY_COPY,
+  QUESTIONS_COPY,
+  RESULT_COPY,
+  STATUS,
+} from '../../src/quiz-data.js';
 
 const strings = (value) => {
   if (typeof value === 'string') return [value];
@@ -56,8 +66,43 @@ describe('quiz data', () => {
     expect(RESULT_COPY.redoButton).toBe('Refazer o diagnóstico');
   });
 
+  it('has the exact privacy notice, offer and privacy page strings', () => {
+    expect(EMAIL_COPY.privacyNotice).toBe(
+      'Ao continuar, você aceita receber e-mails da Unflaky sobre o curso. Dá para sair quando quiser.',
+    );
+    expect(EMAIL_COPY.privacyLink).toBe('Política de privacidade');
+    expect(OFFER_COPY.eyebrow).toBe('PRÓXIMO PASSO');
+    expect(OFFER_COPY.headline(0)).toBe('Sua base é boa, o curso transforma isso em método');
+    expect(OFFER_COPY.headline(1)).toBe('Sua área aberta é exatamente o que o curso ensina a conferir');
+    expect(OFFER_COPY.headline(3)).toBe('Suas 3 áreas abertas são exatamente o que o curso ensina a conferir');
+    expect(OFFER_COPY.items).toHaveLength(4);
+    expect(OFFER_COPY.price).toBe('R$ 9,90');
+    expect(OFFER_COPY.priceLabel).toBe('à vista');
+    expect(OFFER_COPY.button).toBe('Quero o curso');
+    expect(OFFER_COPY.note).toBe('Pagamento pela Kiwify. 7 dias de garantia.');
+    expect(OFFER_COPY.courseLine).toBe('Curso completo por R$ 9,90, à vista, com 7 dias de garantia.');
+    expect(PRIVACY_COPY.title).toBe('Política de privacidade');
+    expect(PRIVACY_COPY.sections).toHaveLength(5);
+    expect(PRIVACY_COPY.rights('')).toBe(
+      'Pela LGPD, você pode pedir acesso, correção ou exclusão dos seus dados a qualquer momento. Todo e-mail tem um link para sair da lista.',
+    );
+    expect(PRIVACY_COPY.rights('oi@site.com')).toBe(
+      'Pela LGPD, você pode pedir acesso, correção ou exclusão dos seus dados a qualquer momento. Todo e-mail tem um link para sair da lista, e você também pode escrever para oi@site.com.',
+    );
+    expect(PRIVACY_COPY.back).toBe('Voltar para a página do curso');
+  });
+
   it('never uses an em dash or an en dash', () => {
-    const all = strings([AREAS, BANDS, OPTIONS, STATUS, EMAIL_COPY, RESULT_COPY]);
+    const all = strings([
+      AREAS,
+      BANDS,
+      OPTIONS,
+      STATUS,
+      EMAIL_COPY,
+      RESULT_COPY,
+      OFFER_COPY,
+      PRIVACY_COPY,
+    ]);
     for (const text of all) {
       expect(text).not.toMatch(/[\u2013\u2014]/);
     }

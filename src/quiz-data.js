@@ -104,6 +104,8 @@ export const EMAIL_COPY = {
   button: 'Ver meu diagnóstico',
   note: 'Seu resultado aparece na tela assim que você confirmar.',
   error: 'Confira o e-mail digitado, parece que falta alguma coisa nele.',
+  privacyNotice: 'Ao continuar, você aceita receber e-mails da Unflaky sobre o curso. Dá para sair quando quiser.',
+  privacyLink: 'Política de privacidade',
 };
 
 export const RESULT_COPY = {
@@ -117,4 +119,62 @@ export const RESULT_COPY = {
   lessonsButton: 'Ver as aulas do curso',
   redoButton: 'Refazer o diagnóstico',
   note: 'Guarde suas áreas descobertas, elas viram o seu plano de conferência antes do próximo lançamento.',
+};
+
+export const OFFER_COPY = {
+  eyebrow: 'PRÓXIMO PASSO',
+  headline: (openCount) => {
+    if (openCount === 0) return 'Sua base é boa, o curso transforma isso em método';
+    if (openCount === 1) return 'Sua área aberta é exatamente o que o curso ensina a conferir';
+    return `Suas ${openCount} áreas abertas são exatamente o que o curso ensina a conferir`;
+  },
+  text: 'Mini curso Teste Antes de Lançar: 8 aulas curtas, cada uma com o prompt pronto para o seu agente e a conferência manual para você validar no seu próprio produto.',
+  items: [
+    '8 aulas curtas, introdução mais os 7 testes',
+    'Prompt pronto em cada aula',
+    'Conferência manual passo a passo',
+    'Lista de liberação para repetir em todo lançamento',
+  ],
+  price: 'R$ 9,90',
+  priceLabel: 'à vista',
+  button: 'Quero o curso',
+  note: 'Pagamento pela Kiwify. 7 dias de garantia.',
+  courseLine: 'Curso completo por R$ 9,90, à vista, com 7 dias de garantia.',
+};
+
+export const PRIVACY_COPY = {
+  title: 'Política de privacidade',
+  intro:
+    'Esta página explica quais dados o diagnóstico Teste Antes de Lançar coleta, para que eles servem e como você pode pedir para apagá-los.',
+  sections: [
+    {
+      title: 'Quem cuida dos seus dados',
+      body: 'Herbert Parasio, responsável pela Unflaky, Quality Lab.',
+    },
+    {
+      title: 'O que coletamos',
+      body:
+        'Quando você faz o diagnóstico e confirma seu e-mail, guardamos o e-mail, a pontuação, a faixa do resultado e as áreas que ficaram abertas. Não coletamos nome, telefone, documento ou dados de pagamento nesta página.',
+    },
+    {
+      title: 'Para que usamos',
+      body:
+        'Para enviar e-mails sobre o curso Teste Antes de Lançar e conteúdos de qualidade de software ligados ao seu resultado. Não vendemos nem compartilhamos sua lista com terceiros para fins de marketing.',
+    },
+    {
+      title: 'Onde os dados ficam',
+      body:
+        'Os dados ficam guardados no MailerLite, a ferramenta que usamos para enviar os e-mails. Os servidores do MailerLite podem ficar fora do Brasil. Os pagamentos do curso são feitos na Kiwify, que tem a própria política de privacidade.',
+    },
+    {
+      title: 'Por quanto tempo',
+      body: 'Enquanto você continuar inscrito. Se você sair da lista, seus dados deixam de ser usados para envio.',
+    },
+  ],
+  rightsTitle: 'Seus direitos',
+  rights: (contactEmail) =>
+    contactEmail
+      ? `Pela LGPD, você pode pedir acesso, correção ou exclusão dos seus dados a qualquer momento. Todo e-mail tem um link para sair da lista, e você também pode escrever para ${contactEmail}.`
+      : 'Pela LGPD, você pode pedir acesso, correção ou exclusão dos seus dados a qualquer momento. Todo e-mail tem um link para sair da lista.',
+  back: 'Voltar para a página do curso',
 };
