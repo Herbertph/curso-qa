@@ -84,6 +84,10 @@ This is the first feature of a brand-new repository: the developer also sets up 
 - **FR-14 Responsive and accessibility.** Breakpoint behavior of §30 at 900px and 620px; no horizontal overflow at any
   width from 320px up; `prefers-reduced-motion` disables smooth scroll and the plus-sign rotation; visible 2px gold
   focus outline on fields.
+- **FR-16 Design system: 8px grid and Refactoring UI** (product owner request, 2026-11-19, overrides the raw pixel
+  values of the source where they conflict, see "Design system" below). Every spacing, size and layout dimension comes
+  from a fixed token scale built on 8px; the whole UI follows the principles of the book *Refactoring UI*
+  (Wathan & Schoger).
 - **FR-15 Technical.** Static page, no backend, no external images; empty data-URI favicon; viewport meta with
   `viewport-fit=cover`; anchors `#topo`, `#diagnostico`, `#aulas`; zero console errors (§31).
 
@@ -196,7 +200,54 @@ Each criterion maps to the source checklist in §32. "Desktop" = 1280×800 viewp
 - **AC-39** Given keyboard only, when I Tab through the page and the quiz, then every interactive element is reachable,
   shows a visible focus indicator, and quiz options can be selected with Enter or Space.
 
+### Design system (8px grid, Refactoring UI)
+- **AC-40** Given `src/styles.css`, then all spacing (padding, margin, gap), component sizes (button heights, icon
+  boxes, avatar, logo box, phone frame) and border radii use CSS custom properties from the token scale below; no raw
+  `px` value for spacing or sizing appears outside the token definitions (borders of 1px/1.5px/2px/3px, the 2px focus
+  outline and breakpoints are the only exceptions).
+- **AC-41** Given the page on desktop and mobile, when I measure the computed padding, margin and gap of every section,
+  card, button and quiz element, then each value is a value of the spacing scale (multiples of 8px, plus the 4px and
+  12px half steps).
+- **AC-42** Given the type and color tokens, then every font size comes from the type scale below and every color comes
+  from the §5 variables (no ad hoc hex values in component rules).
+
+## Design system: 8px grid and Refactoring UI
+
+Herbert asked (2026-11-19) that the front end strictly follows the **8px proportion rule** and builds everything with
+**Refactoring UI** references. This changes how the source measurements are applied: the source's colors, copy,
+behavior, breakpoints (900px, 620px) and structure stay exact; its raw pixel values for spacing and sizes are mapped to
+the nearest token below. The Front-End Dev owns this design system and documents the final token list in `CLAUDE.md`.
+
+**Spacing and size scale (8px base, 4px only as a half step for tight UI):**
+`--space-1: 4px`, `--space-2: 8px`, `--space-3: 12px`, `--space-4: 16px`, `--space-5: 24px`, `--space-6: 32px`,
+`--space-7: 40px`, `--space-8: 48px`, `--space-9: 56px`, `--space-10: 64px`, `--space-11: 80px`, `--space-12: 96px`.
+Mapping guide: 14/18/20px → 16px or 24px by context; 22/26/28px → 24px or 32px; 34px close button → 32px (with a 40px
+hit area if needed); 38px notch strip → 40px; 44px logo box and header button → 40px or 48px; 54px big button → 56px;
+70px final CTA → 64px or 80px; 90px footer bottom → 96px; 1120px max width and 400px phone frame already fit.
+Minimum tap target stays 48px. Radii: `--radius-sm: 8px`, `--radius: 16px` (source 14px), `--radius-lg: 24px`,
+`--radius-xl: 32px` / `40px` for the phone frame, `--radius-full`.
+
+**Type scale (Refactoring UI: a small, fixed scale, no in-between sizes):**
+12, 14, 16, 18, 20, 24, 30, 36, 48, 60px. Source sizes map to the nearest step (13/13.5 → 14, 14.5/15/15.5 → 16,
+16.5/17 → 16 or 18, 19 → 20, 22 → 24, 56 → 60). Line heights from 4px multiples where practical; body stays 1.5 to 1.6.
+
+**Refactoring UI principles the front end must apply:**
+- Hierarchy through weight and color (`--text`, `--muted`, `--muted2`) before size; de-emphasize secondary content
+  instead of emphasizing everything.
+- Start with too much white space and remove; group related items with less space than unrelated ones.
+- Limit choices: only the spacing, type, radius, shadow and color tokens defined here.
+- Labels are a last resort; prefer data with clear hierarchy (score, status rows, lesson numbers).
+- Emphasize by de-emphasizing; one primary action per area (gold button), secondary actions as ghost buttons.
+- Depth with a small, consistent shadow scale (for example `--shadow-sm`, `--shadow-md`, `--shadow-lg` for the phone
+  frame) and light from above; use borders sparingly, prefer spacing, background tone or shadow to separate.
+- Don't let the text column run wide: keep body text around 45 to 75 characters per line.
+- Accessible contrast for text on dark backgrounds (at least WCAG AA for body text).
+
 ## Assumptions to confirm (Herbert)
+
+0. **8px rule vs. source pixels.** Where the source gives a pixel value that is not on the 8px scale (14px, 18px, 22px,
+   26px, 44px, 54px...), the token scale wins and the value is rounded to the nearest token. Colors, copy, behavior and
+   breakpoints from the source stay exact.
 
 1. **Gold part of the H1.** The source says "the final part" of `Sem esses testes, seu SaaS pode quebrar em produção`
    is gold but not where it starts. Assumed: `pode quebrar em produção` is gold.
