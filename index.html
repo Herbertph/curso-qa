@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Teste Antes de Lançar, o mini curso para SaaS feito com IA</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="logo" href="#topo" aria-label="Unflaky, Quality Lab">
+          <span class="logo-box">
+            <svg class="logo-shield" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                class="logo-shield-body"
+                d="M12 2.2 20 5v6.3c0 5-3.4 8.6-8 10.5-4.6-1.9-8-5.5-8-10.5V5l8-2.8Z"
+              />
+              <path class="logo-shield-check" d="m8.2 12.1 2.6 2.6 5-5.4" />
+            </svg>
+          </span>
+          <span class="logo-text">
+            <span class="logo-name">UNFLAKY</span>
+            <span class="logo-sub">QUALITY LAB</span>
+          </span>
+        </a>
+        <button class="btn btn-gold header-cta" type="button" data-open-quiz>Fazer o diagnóstico</button>
+      </div>
+    </header>
+
+    <main id="topo">
+      <section class="hero" data-section="hero">
+        <div class="wrap hero-grid">
+          <div class="hero-copy">
+            <p class="pill"><span class="pill-dot" aria-hidden="true"></span>Mini curso, 8 aulas curtas</p>
+            <h1>Sem esses testes, seu SaaS <span class="gold-text">pode quebrar em produção</span></h1>
+            <p class="hero-lead">
+              Você construiu rápido com IA, e isso é ótimo. O problema é que o agente entrega o código e diz que
+              está pronto, mas <span class="strong-text">ninguém conferiu se funciona de verdade</span>. Este mini
+              curso mostra os 7 testes que separam um lançamento tranquilo de um lançamento apagando incêndio.
+            </p>
+            <p class="hero-lead">
+              Aulas curtas e diretas, feitas para quem programa com agente, Cursor, Claude, Copilot ou qualquer
+              LLM, e quer validar o próprio produto sem virar especialista em QA.
+            </p>
+            <div class="cta-box">
+              <h2 class="cta-box-title">Descubra onde seu SaaS pode quebrar</h2>
+              <p class="cta-box-text">
+                Responda 7 perguntas, uma para cada teste do curso, e veja na tela sua pontuação de 0 a 14, suas
+                áreas descobertas e as aulas prioritárias para o seu caso.
+              </p>
+              <button class="btn btn-gold btn-lg btn-block" type="button" data-open-quiz>
+                Fazer o diagnóstico
+              </button>
+              <p class="cta-note">Leva cerca de 1 minuto. O resultado aparece na tela, com o status de cada área.</p>
+            </div>
+          </div>
+
+          <aside class="conf-card" aria-label="Exemplo de conferência de testes antes do lançamento">
+            <div class="conf-head">
+              <span class="mono conf-label">CONFERÊNCIA PRÉ-LANÇAMENTO</span>
+              <span class="conf-badge">AO VIVO NA AULA</span>
+            </div>
+            <ul class="conf-list">
+              <li class="conf-row">
+                <span class="status-box status-ok" aria-hidden="true">✓</span>
+                <span class="conf-text"><strong>Login e sessão</strong>Usuário entra, sai e volta sem perder o acesso</span>
+              </li>
+              <li class="conf-row">
+                <span class="status-box status-fail" aria-hidden="true">x</span>
+                <span class="conf-text"
+                  ><strong>Pagamento e checkout</strong>Cartão recusado ainda cobra o cliente, bug clássico de SaaS
+                  novo</span
+                >
+              </li>
+              <li class="conf-row">
+                <span class="status-box status-ok" aria-hidden="true">✓</span>
+                <span class="conf-text"
+                  ><strong>Salvamento de dados</strong>O que o usuário salva continua lá depois de atualizar a
+                  página</span
+                >
+              </li>
+              <li class="conf-row">
+                <span class="status-box status-fail" aria-hidden="true">x</span>
+                <span class="conf-text"
+                  ><strong>Permissões de acesso</strong>Um cliente consegue ver dados de outro cliente</span
+                >
+              </li>
+              <li class="conf-row">
+                <span class="status-box status-pending" aria-hidden="true">•</span>
+                <span class="conf-text"
+                  ><strong>Fluxo principal ponta a ponta</strong>Cadastro, uso e pagamento, na ordem em que o cliente
+                  faz</span
+                >
+              </li>
+            </ul>
+            <div class="conf-foot">
+              <span>2 falhas encontradas <span class="mono">antes</span> do lançamento</span>
+              <span class="mono conf-cost">CUSTO: R$ 0 em cliente perdido</span>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="proof" data-section="proof">
+        <div class="wrap proof-grid">
+          <div class="proof-item">
+            <p class="proof-num">10<span class="gold-text">+</span></p>
+            <p class="proof-text">anos de experiência em TI, de desenvolvimento a qualidade de software</p>
+          </div>
+          <div class="proof-item">
+            <p class="proof-num">3 dias <span class="gold-text">→</span> 24h</p>
+            <p class="proof-text">
+              foi a redução no tempo de triagem de bugs, com processo e bug report padronizado
+            </p>
+          </div>
+          <div class="proof-item">
+            <p class="proof-num">98<span class="gold-text">%</span></p>
+            <p class="proof-text">
+              no prazo das entregas nos últimos 6 meses, verificando software que não pode ir ao ar com erro
+            </p>
+          </div>
+          <div class="proof-item">
+            <p class="proof-num">CTFL <span class="gold-text">2026</span></p>
+            <p class="proof-text">certificação internacional em testes de software, ISTQB</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-diagnostico" data-section="diagnostico" id="diagnostico" aria-labelledby="diagnostico-title">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Diagnóstico rápido</p>
+            <h2 id="diagnostico-title">Descubra, em 1 minuto, onde seu SaaS pode quebrar</h2>
+            <p class="section-lead">
+              7 perguntas, uma para cada teste do curso. No final, você deixa seu e-mail e recebe na tela sua
+              pontuação, suas áreas descobertas e quais aulas atacam exatamente o seu risco.
+            </p>
+          </div>
+          <div class="diag-box">
+            <div class="diag-copy">
+              <h3>Seu SaaS está pronto para o primeiro cliente de verdade?</h3>
+              <p>
+                O diagnóstico abre aqui na página, em uma janelinha no formato de celular. Você responde as 7
+                perguntas, deixa seu e-mail e vê o resultado completo sem sair desta tela.
+              </p>
+            </div>
+            <button class="btn btn-gold btn-lg" type="button" data-open-quiz>Fazer o diagnóstico</button>
+          </div>
+          <div class="quiz" id="quiz" hidden></div>
+        </div>
+      </section>
+
+      <section class="section" data-section="problema" aria-labelledby="problema-title">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">O problema</p>
+            <h2 id="problema-title">Vibe coding acelerou a construção. A conferência ficou para trás.</h2>
+            <p class="section-lead">
+              Hoje qualquer founder monta um SaaS em semanas. Só que velocidade sem teste cria um tipo novo de bug,
+              o bug que ninguém viu porque ninguém procurou.
+            </p>
+          </div>
+          <div class="grid-2">
+            <article class="card">
+              <p class="tag tag-red">SEM TESTE</p>
+              <h3>Quem descobre o bug é o cliente</h3>
+              <p>
+                O agente diz que terminou, você publica, e o primeiro pagamento real falha, o primeiro cliente perde
+                os dados que salvou, ou pior, enxerga os dados de outro cliente. A correção vem depois do estrago,
+                com pressa e com o cliente já desconfiando do produto.
+              </p>
+            </article>
+            <article class="card">
+              <p class="tag tag-green">COM OS 7 TESTES</p>
+              <h3>Quem descobre o bug é você, antes</h3>
+              <p>
+                Você roda uma conferência curta e metódica nas áreas que realmente quebram um SaaS. Cada falha
+                aparece na sua tela, em ambiente de teste, com tempo de pedir a correção para o agente e conferir de
+                novo. Lançar vira uma decisão, não uma aposta.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-section="formato" aria-labelledby="formato-title">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">O formato de cada aula</p>
+            <h2 id="formato-title">Não é teoria de QA. É um roteiro de trabalho.</h2>
+            <p class="section-lead">
+              Cada um dos 7 testes segue o mesmo formato, para você aplicar no seu produto no mesmo dia, mesmo sem
+              escrever código na mão.
+            </p>
+          </div>
+          <div class="grid-4">
+            <article class="card card-step">
+              <p class="step-num">PASSO 1</p>
+              <h3>Onde você está tocando</h3>
+              <p>
+                Qual área do seu SaaS aquele teste cobre, pagamento, login, dados, permissões, e onde o risco mora
+                nela.
+              </p>
+            </article>
+            <article class="card card-step">
+              <p class="step-num">PASSO 2</p>
+              <h3>Por que testar isso</h3>
+              <p>
+                O que quebra se essa área falhar, traduzido para a linguagem do founder, venda perdida, dado perdido,
+                cliente perdido.
+              </p>
+            </article>
+            <article class="card card-step">
+              <p class="step-num">PASSO 3</p>
+              <h3>O prompt pronto</h3>
+              <p>
+                Um prompt completo para colar no seu agente e pedir a implementação ou a correção do teste, sem você
+                precisar saber programá-lo.
+              </p>
+            </article>
+            <article class="card card-step">
+              <p class="step-num">PASSO 4</p>
+              <h3>A conferência manual</h3>
+              <p>
+                O passo a passo curto, na tela, para você mesmo confirmar se funcionou. Porque o agente diz que fez,
+                mas quem valida é você.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-section="aulas" id="aulas" aria-labelledby="aulas-title">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Conteúdo do curso</p>
+            <h2 id="aulas-title">8 aulas, uma introdução e os 7 testes</h2>
+            <p class="section-lead">
+              Toque em cada aula para ver o que ela cobre. Aulas curtas, sem enrolação, cada uma termina com a
+              conferência feita no seu próprio produto.
+            </p>
+          </div>
+
+          <div class="accordion course-accordion">
+            <div class="acc-item">
+              <h3 class="acc-heading">
+                <button class="acc-trigger" type="button" aria-expanded="true" aria-controls="aula-00">
+                  <span class="acc-num mono">00</span>
+                  <span class="acc-titles">
+                    <span class="acc-title">Introdução, por que SaaS feito com IA quebra diferente</span>
+                    <span class="acc-sub">O erro não está no código que você vê, está no que ninguém conferiu</span>
+                  </span>
+                  <span class="acc-plus" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="acc-panel" id="aula-00">
+                <p>
+                  Software feito com agente falha de um jeito próprio, o agente resolve o que foi pedido e não avisa
+                  o que ficou de fora, caso limite, erro de pagamento, permissão aberta. Nesta aula você entende esse
+                  padrão, monta seu ambiente de conferência e aprende a ordem certa de testar antes de qualquer
+                  lançamento.
+                </p>
+                <ul class="tags">
+                  <li class="tag tag-gold">AULA DE ABERTURA</li>
+                  <li class="tag">MAPA DOS 7 TESTES</li>
+                  <li class="tag">AMBIENTE DE TESTE</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="acc-item">
+              <h3 class="acc-heading">
+                <button class="acc-trigger" type="button" aria-expanded="false" aria-controls="aula-01">
+                  <span class="acc-num mono">01</span>
+                  <span class="acc-titles">
+                    <span class="acc-title">Login e sessão</span>
+                    <span class="acc-sub">Se o usuário não entra, nada mais importa</span>
+                  </span>
+                  <span class="acc-plus" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="acc-panel" id="aula-01" hidden>
+                <p>
+                  Login é a porta do seu SaaS, e porta quebrada não aparece no seu teste rápido, aparece para o
+                  cliente às 22h de um domingo. Você confere cadastro, login, logout, recuperação de senha, sessão que
+                  expira e o que acontece quando o usuário tenta entrar duas vezes ou com a senha errada.
+                </p>
+                <ul class="tags">
+                  <li class="tag">ÁREA, AUTENTICAÇÃO</li>
+                  <li class="tag tag-gold">PROMPT INCLUSO</li>
+                  <li class="tag">CHECKLIST MANUAL</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="acc-item">
+              <h3 class="acc-heading">
+                <button class="acc-trigger" type="button" aria-expanded="false" aria-controls="aula-02">
+                  <span class="acc-num mono">02</span>
+                  <span class="acc-titles">
+                    <span class="acc-title">Pagamento e checkout</span>
+                    <span class="acc-sub">A área onde um bug vira prejuízo na hora</span>
+                  </span>
+                  <span class="acc-plus" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="acc-panel" id="aula-02" hidden>
+                <p>
+                  Pagamento aprovado, pagamento recusado, assinatura que renova, assinatura que cancela, reembolso.
+                  Você testa o caminho do dinheiro inteiro, incluindo o cartão que falha, porque é justamente no erro
+                  que os SaaS novos cobram errado, liberam acesso sem pagar ou bloqueiam quem pagou.
+                </p>
+                <ul class="tags">
+                  <li class="tag">ÁREA, RECEITA</li>
+                  <li class="tag tag-gold">PROMPT INCLUSO</li>
+                  <li class="tag">CHECKLIST MANUAL</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="acc-item">
+              <h3 class="acc-heading">
+                <button class="acc-trigger" type="button" aria-expanded="false" aria-controls="aula-03">
+                  <span class="acc-num mono">03</span>
+                  <span class="acc-titles">
+                    <span class="acc-title">Salvamento e perda de dados</span>
+                    <span class="acc-sub">O usuário confia que o que salvou vai estar lá</span>
+                  </span>
+                  <span class="acc-plus" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="acc-panel" id="aula-03" hidden>
+                <p>
+                  Criar, editar, apagar e recarregar. Você confere se tudo que o usuário salva sobrevive a atualizar a
+                  página, fechar e voltar, editar duas vezes e apagar sem querer. Perder dado do cliente é o bug que
+                  menos se perdoa, e um dos mais simples de prevenir.
+                </p>
+                <ul class="tags">
+                  <li class="tag">ÁREA, DADOS</li>
+                  <li class="tag tag-gold">PROMPT INCLUSO</li>
+                  <li class="tag">CHECKLIST MANUAL</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="acc-item">
+              <h3 class="acc-heading">
+                <button class="acc-trigger" type="button" aria-expanded="false" aria-controls="aula-04">
+                  <span class="acc-num mono">04</span>
+                  <span class="acc-titles">
+                    <span class="acc-title">Permissões e acesso</span>
+                    <span class="acc-sub">Um cliente nunca pode ver o que é de outro</span>
+                  </span>
+                  <span class="acc-plus" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="acc-panel" id="aula-04" hidden>
+                <p>
+                  O vazamento mais comum em SaaS feito rápido não é invasão, é permissão que ninguém testou, trocar um
+                  número na URL e abrir a conta de outra pessoa. Você aprende a testar papéis de usuário, acesso de
+                  administrador e isolamento entre contas, do jeito que um testador profissional faz.
+                </p>
+                <ul class="tags">
+                  <li class="tag">ÁREA, SEGURANÇA BÁSICA</li>
+                  <li class="tag tag-gold">PROMPT INCLUSO</li>
+                  <li class="tag">CHECKLIST MANUAL</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="acc-item">
+              <h3 class="acc-heading">
+                <button class="acc-trigger" type="button" aria-expanded="false" aria-controls="aula-05">
+                  <span class="acc-num mono">05</span>
+                  <span class="acc-titles">
+                    <span class="acc-title">Fluxo principal ponta a ponta</span>
+                    <span class="acc-sub">A jornada completa, na ordem do cliente</span>
+                  </span>
+                  <span class="acc-plus" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="acc-panel" id="aula-05" hidden>
+                <p>
+                  Testar tela por tela esconde o bug que mora entre as telas. Nesta aula você percorre a jornada
+                  inteira como um cliente novo, cadastro, primeiro uso, pagamento e resultado final, e descobre onde a
+                  experiência quebra no meio do caminho.
+                </p>
+                <ul class="tags">
+                  <li class="tag">ÁREA, JORNADA DO CLIENTE</li>
+                  <li class="tag tag-gold">PROMPT INCLUSO</li>
+                  <li class="tag">CHECKLIST MANUAL</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="acc-item">
+              <h3 class="acc-heading">
+                <button class="acc-trigger" type="button" aria-expanded="false" aria-controls="aula-06">
+                  <span class="acc-num mono">06</span>
+                  <span class="acc-titles">
+                    <span class="acc-title">Erros e casos limite</span>
+                    <span class="acc-sub">Seu usuário vai fazer tudo que você não imaginou</span>
+                  </span>
+                  <span class="acc-plus" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="acc-panel" id="aula-06" hidden>
+                <p>
+                  Campo vazio, texto gigante, clique duplo no botão de pagar, internet que cai no meio do envio. Você
+                  testa o comportamento do seu SaaS quando algo dá errado, para ele responder com uma mensagem clara
+                  em vez de uma tela quebrada ou uma cobrança duplicada.
+                </p>
+                <ul class="tags">
+                  <li class="tag">ÁREA, RESILIÊNCIA</li>
+                  <li class="tag tag-gold">PROMPT INCLUSO</li>
+                  <li class="tag">CHECKLIST MANUAL</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="acc-item">
+              <h3 class="acc-heading">
+                <button class="acc-trigger" type="button" aria-expanded="false" aria-controls="aula-07">
+                  <span class="acc-num mono">07</span>
+                  <span class="acc-titles">
+                    <span class="acc-title">Mobile, navegadores e o lançamento</span>
+                    <span class="acc-sub">Conferir onde seu cliente realmente acessa</span>
+                  </span>
+                  <span class="acc-plus" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="acc-panel" id="aula-07" hidden>
+                <p>
+                  Seu cliente abre no celular, no navegador que ele já usa, com a internet que ele tem. Na aula final
+                  você confere responsivo, navegadores principais e velocidade percebida, e monta sua lista final de
+                  liberação, o ritual de conferência para repetir em todo lançamento daqui para frente.
+                </p>
+                <ul class="tags">
+                  <li class="tag">ÁREA, EXPERIÊNCIA FINAL</li>
+                  <li class="tag tag-gold">PROMPT INCLUSO</li>
+                  <li class="tag">LISTA DE LIBERAÇÃO</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <ul class="course-foot">
+            <li><strong>8 aulas</strong>, introdução mais os 7 testes</li>
+            <li>Em cada aula, <strong>o prompt pronto e a conferência manual</strong></li>
+            <li>Feito para quem constrói com IA, <strong>sem base em QA</strong></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" data-section="publico" aria-labelledby="publico-title">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Para quem é</p>
+            <h2 id="publico-title">Feito para founder que constrói, não para quem estuda QA</h2>
+          </div>
+          <div class="grid-2">
+            <article class="card card-yes">
+              <h3>Este curso é para você se</h3>
+              <ul class="check-list">
+                <li>Você está criando um SaaS com IA, vibe coding ou agente de código</li>
+                <li>Você vai lançar, ou já lançou, sem ninguém testando além de você</li>
+                <li>Seu maior medo é quebrar em produção na frente dos primeiros clientes</li>
+                <li>Você quer um método curto de conferência, para repetir em todo lançamento</li>
+              </ul>
+            </article>
+            <article class="card card-no">
+              <h3>Não é para você se</h3>
+              <ul class="check-list">
+                <li>Você quer uma formação completa em QA ou preparação para certificação</li>
+                <li>Você procura automação avançada de testes e frameworks de código</li>
+                <li>Seu produto já tem uma equipe de qualidade dedicada</li>
+                <li>Você quer promessa de resultado financeiro, aqui não tem nenhuma</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-section="instrutor" aria-labelledby="instrutor-title">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Quem ensina</p>
+            <h2 id="instrutor-title">Autoridade de verdade, sem número inventado</h2>
+            <p class="section-lead">
+              Você vai ver por aí curso vendido com print de faturamento e promessa de resultado. Aqui a credibilidade
+              é outra, é trabalho real, verificável, feito todos os dias.
+            </p>
+          </div>
+          <div class="instructor">
+            <div class="instructor-card">
+              <p class="avatar" aria-hidden="true">HP</p>
+              <p class="instructor-name">Herbert Parasio</p>
+              <p class="instructor-role">SQA Team Lead, BMM Test Labs, Canadá</p>
+              <ul class="instructor-list">
+                <li>
+                  Team Lead de QA em laboratório de testes no Canadá, com software que não pode ir ao ar com erro
+                </li>
+                <li>95% de aprovação na primeira verificação dos produtos testados nos últimos 6 meses</li>
+                <li>Reduziu uma triagem de bugs de 3 dias para menos de 24 horas</li>
+                <li>Certificado CTFL, ISTQB, em 2026</li>
+                <li>Mais de 10 anos em TI, de desenvolvedor full stack a líder de QA</li>
+              </ul>
+            </div>
+            <div class="instructor-text">
+              <p>
+                Eu trabalho <span class="strong-text">testando software que não pode ir ao ar com erro</span>. No
+                laboratório onde lidero a área de QA, cada produto passa por uma verificação rigorosa antes de
+                qualquer liberação, e cada problema encontrado volta para quem desenvolveu corrigir, com o processo
+                rodando até ficar certo.
+              </p>
+              <p>
+                <span class="strong-text">É esse olhar que falta no SaaS feito com IA.</span> Não é falta de código, o
+                agente entrega código o dia inteiro. É falta de alguém conferindo o que importa, na ordem certa, antes
+                do cliente. Foi exatamente esse método, simplificado para quem não é de QA, que virou as 7 aulas
+                deste curso.
+              </p>
+              <p>
+                <span class="strong-text">Nada aqui é teoria de livro.</span> É o mesmo raciocínio de priorização e
+                conferência que eu uso no trabalho, traduzido para a realidade de quem constrói sozinho, com agente, e
+                precisa lançar sem medo.
+              </p>
+              <blockquote>
+                Eu não tenho coragem de inventar número para parecer autoridade. O que eu tenho é o trabalho, e é ele
+                que está nestas aulas.
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-section="faq" aria-labelledby="faq-title">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Perguntas frequentes</p>
+            <h2 id="faq-title">Tire suas dúvidas</h2>
+          </div>
+          <div class="accordion faq-accordion">
+            <div class="acc-item">
+              <h3 class="acc-heading">
+                <button class="acc-trigger" type="button" aria-expanded="false" aria-controls="faq-1">
+                  <span class="acc-title">Preciso saber programar para fazer o curso?</span>
+                  <span class="acc-plus" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="acc-panel" id="faq-1" hidden>
+                <p>
+                  Não. O curso foi desenhado para quem constrói com agente. Em cada aula, o prompt pronto faz a parte
+                  técnica com a sua LLM, e a conferência manual é feita na tela, clicando e observando, sem escrever
+                  código.
+                </p>
+              </div>
+            </div>
+            <div class="acc-item">
+              <h3 class="acc-heading">
+                <button class="acc-trigger" type="button" aria-expanded="false" aria-controls="faq-2">
+                  <span class="acc-title">Funciona com a ferramenta que eu uso?</span>
+                  <span class="acc-plus" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="acc-panel" id="faq-2" hidden>
+                <p>
+                  Sim. Os prompts e as conferências não dependem de uma ferramenta específica. Servem para Cursor,
+                  Claude, Copilot, ChatGPT e qualquer outro agente ou LLM que você já use para construir seu SaaS.
+                </p>
+              </div>
+            </div>
+            <div class="acc-item">
+              <h3 class="acc-heading">
+                <button class="acc-trigger" type="button" aria-expanded="false" aria-controls="faq-3">
+                  <span class="acc-title">Quando o curso lança e quanto vai custar?</span>
+                  <span class="acc-plus" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="acc-panel" id="faq-3" hidden>
+                <p>
+                  O curso está em produção e será lançado quando estiver completo, com data e preço publicados aqui.
+                  Enquanto isso, o diagnóstico já mostra quais áreas do seu SaaS precisam de atenção primeiro.
+                </p>
+              </div>
+            </div>
+            <div class="acc-item">
+              <h3 class="acc-heading">
+                <button class="acc-trigger" type="button" aria-expanded="false" aria-controls="faq-4">
+                  <span class="acc-title">O diagnóstico é gratuito?</span>
+                  <span class="acc-plus" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="acc-panel" id="faq-4" hidden>
+                <p>
+                  Sim. São 7 perguntas, leva cerca de 1 minuto, e o resultado aparece na tela com sua pontuação de 0 a
+                  14 e o status de cada área. Pedimos seu e-mail antes de mostrar o resultado, só isso.
+                </p>
+              </div>
+            </div>
+            <div class="acc-item">
+              <h3 class="acc-heading">
+                <button class="acc-trigger" type="button" aria-expanded="false" aria-controls="faq-5">
+                  <span class="acc-title">Eu já lancei meu SaaS. Ainda faz sentido?</span>
+                  <span class="acc-plus" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="acc-panel" id="faq-5" hidden>
+                <p>
+                  Faz, e talvez faça ainda mais. Os 7 testes viram um ritual de conferência para cada nova versão,
+                  cada nova funcionalidade e cada correção que o agente entregar. Produto lançado quebra em atualização
+                  do mesmo jeito que quebra em lançamento.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="final-cta" data-section="final-cta">
+        <div class="wrap final-cta-inner">
+          <p class="eyebrow">Diagnóstico rápido</p>
+          <h2>Seu próximo lançamento não precisa ser uma aposta</h2>
+          <p>
+            Faça o diagnóstico, 7 perguntas em cerca de 1 minuto, e veja sua pontuação, suas áreas descobertas e as
+            aulas que atacam exatamente o seu risco. Melhor você encontrar o bug agora do que o seu primeiro cliente
+            encontrar por você.
+          </p>
+          <button class="btn btn-gold btn-lg" type="button" data-open-quiz>Fazer o diagnóstico</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p>UNFLAKY, Quality Lab, Herbert Parasio</p>
+        <p>
+          Mini curso em produção. Conteúdo baseado em experiência real de QA, sem resultados financeiros prometidos ou
+          inventados.
+        </p>
+      </div>
+    </footer>
+
+    <div class="mobile-bar">
+      <button class="btn btn-gold btn-block" type="button" data-open-quiz>Fazer o diagnóstico</button>
+    </div>
+
+    <div class="quiz-modal" id="quiz-modal">
+      <div class="phone-frame" role="dialog" aria-modal="true" aria-label="Diagnóstico rápido, 7 perguntas">
+        <div class="phone-top">
+          <span class="notch" aria-hidden="true"></span>
+          <button class="modal-close" type="button" aria-label="Fechar o diagnóstico">
+            <span class="modal-close-icon" aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="phone-screen"></div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
